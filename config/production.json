@@ -1,0 +1,7 @@
+{
+  "beerApi": {
+    "url": "https://api.brewerydb.com/v2/",
+    "key": "886516bc0b2f11dab6c83843f4a3027f"
+  },
+  "logLevel" : "info"
+}

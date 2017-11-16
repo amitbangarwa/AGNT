@@ -1,0 +1,11 @@
+{
+  "beerEndpoint": {
+    "url": {
+      "search" : "http://api.brewerydb.com/v2/search?key=886516bc0b2f11dab6c83843f4a3027f",
+      "beer": ""
+    },
+    "key": "886516bc0b2f11dab6c83843f4a3027f",
+    "type": "beer"
+  },
+  "logLevel": "debug"
+}
