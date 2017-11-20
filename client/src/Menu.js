@@ -1,117 +1,93 @@
 import React, {Component} from 'react';
-import {Container, Divider, Dropdown, Grid, Header, Image, List, Menu, Segment} from 'semantic-ui-react'
+import {Dropdown, Image, Menu, Icon} from 'semantic-ui-react'
 import Assets from "./Assets";
 import BeerSearch from "./Search";
+import Options from "./Options";
+import './Menu.css';
 
-const FixedMenuLayout = () => (
-    <div>
-        <Menu fixed='top' inverted>
-            <Menu.Item as='a' header>
-                <Image
-                    size='mini'
-                    src={Assets.Images.logo}
-                    style={{marginRight: '1.5em'}}
-                />
-                AGNT
-            </Menu.Item>
-            <Dropdown item simple text='Event Services'>
-                <Dropdown.Menu>
-                    <Dropdown.Item>Beer</Dropdown.Item>
-                    <Dropdown.Item>Brewery</Dropdown.Item>
-                    <Dropdown.Divider/>
-                    <Dropdown.Header>Event</Dropdown.Header>
-                    <Dropdown.Item>Award Place</Dropdown.Item>
-                    <Dropdown.Item>Award Category</Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
-            <Menu.Menu>
-                <Menu.Item>
-                    <div className="Search">
-                        <BeerSearch
-                            input={{
-                                icon: 'search',
-                                iconPosition: 'left',
-                                transparent: true,
-                                inverted: true,
-                                placeholder: 'What type of beer are you looking for?'
-                            }}
-                        />
-                    </div>
-                </Menu.Item>
-            </Menu.Menu>
-        </Menu>
-
-        <Container text style={{marginTop: '7em'}}>
-            <Header as='h1'>Semantic UI React Fixed Template</Header>
-            <p>This is a basic fixed menu template using fixed size containers.</p>
-            <p>A text container is used for the main container, which is useful for single column layouts.</p>
-
-            <Image src={Assets.Images.mediaParagraph} style={{marginTop: '2em'}}/>
-            <Image src={Assets.Images.paragraph} style={{marginTop: '2em'}}/>
-            <Image src={Assets.Images.paragraph} style={{marginTop: '2em'}}/>
-            <Image src={Assets.Images.paragraph} style={{marginTop: '2em'}}/>
-            <Image src={Assets.Images.paragraph} style={{marginTop: '2em'}}/>
-            <Image src={Assets.Images.paragraph} style={{marginTop: '2em'}}/>
-            <Image src={Assets.Images.paragraph} style={{marginTop: '2em'}}/>
-        </Container>
-
-        <Segment
-            inverted
-            vertical
-            style={{margin: '5em 0em 0em', padding: '5em 0em'}}
-        >
-            <Container textAlign='center'>
-                <Grid divided inverted stackable>
-                    <Grid.Row>
-                        <Grid.Column width={3}>
-                            <Header inverted as='h4' content='Group 1'/>
-                            <List link inverted>
-                                <List.Item as='a'>Link One</List.Item>
-                                <List.Item as='a'>Link Two</List.Item>
-                                <List.Item as='a'>Link Three</List.Item>
-                                <List.Item as='a'>Link Four</List.Item>
-                            </List>
-                        </Grid.Column>
-                        <Grid.Column width={3}>
-                            <Header inverted as='h4' content='Group 2'/>
-                            <List link inverted>
-                                <List.Item as='a'>Link One</List.Item>
-                                <List.Item as='a'>Link Two</List.Item>
-                                <List.Item as='a'>Link Three</List.Item>
-                                <List.Item as='a'>Link Four</List.Item>
-                            </List>
-                        </Grid.Column>
-                        <Grid.Column width={3}>
-                            <Header inverted as='h4' content='Group 3'/>
-                            <List link inverted>
-                                <List.Item as='a'>Link One</List.Item>
-                                <List.Item as='a'>Link Two</List.Item>
-                                <List.Item as='a'>Link Three</List.Item>
-                                <List.Item as='a'>Link Four</List.Item>
-                            </List>
-                        </Grid.Column>
-                        <Grid.Column width={3}>
-                            <Header inverted as='h4' content='Footer Header'/>
-                            <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
-
-                <Divider inverted section/>
-                <Image
-                    centered
-                    size='mini'
-                    src={Assets.Images.logo}
-                />
-                <List horizontal inverted divided link>
-                    <List.Item as='a' href='#'>Site Map</List.Item>
-                    <List.Item as='a' href='#'>Contact Us</List.Item>
-                    <List.Item as='a' href='#'>Terms and Conditions</List.Item>
-                    <List.Item as='a' href='#'>Privacy Policy</List.Item>
-                </List>
-            </Container>
-        </Segment>
-    </div>
+const trigger = (
+    <span>
+     <Image avatar
+            size='mini'
+            src={Assets.Images.elliot}
+     />
+  </span>
 );
+
+const options = [
+    {key: 'user', text: 'Account', icon: 'user'},
+    {key: 'settings', text: 'Settings', icon: 'settings'},
+    {key: 'sign-out', text: 'Sign Out', icon: 'sign out'},
+];
+
+class FixedMenuLayout extends Component {
+    state = {};
+
+    handleSearchCallback = (searchData) => this.props.callbackBeers(searchData);
+
+    handleItemClick = (e, {name}) => this.setState({activeItem: name});
+
+    render() {
+        const {activeItem} = this.state;
+
+        return (
+            <Menu fixed='top' inverted>
+                <Menu.Item as='a' href={'/'} header
+                           active={activeItem === 'Home'}
+                           onClick={this.handleItemClick}
+                >
+                    <Image
+                        size='mini'
+                        src={Assets.Images.logo}
+                        style={{marginRight: '1.5em'}}
+                    />
+                    AGNT
+                </Menu.Item>
+                <Dropdown item simple text='Event Services'>
+                    <Dropdown.Menu>
+                        <Dropdown.Item>Beer</Dropdown.Item>
+                        <Dropdown.Item>Brewery</Dropdown.Item>
+                        <Dropdown.Divider/>
+                        <Dropdown.Header>Event</Dropdown.Header>
+                        <Dropdown.Item>Award Place</Dropdown.Item>
+                        <Dropdown.Item>Award Category</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+                <div hidden={this.props.hideSearch}>
+                    <div className='Search Vertical-Divider'>
+                        <div className={'Search-Input'}>
+                            <BeerSearch
+                                callbackSearch={this.handleSearchCallback}
+                                input={{
+                                    icon: 'search',
+                                    iconPosition: 'left',
+                                    transparent: true,
+                                    inverted: true,
+                                    fluid: true,
+                                    placeholder: 'What type of beer are you looking for?'
+                                }}
+                            />
+                        </div>
+                        <div className={'Search-Dropdown'}>
+                            <Dropdown className={'transparent'} placeholder='With Breweries' selection
+                                      options={Options.BreweriesOption}/>
+                        </div>
+                    </div>
+                </div>
+                <Menu.Menu position='right'>
+                    <Menu.Item as='a'>
+                        <Icon name={'calendar outline'}/> Your Events
+                    </Menu.Item>
+                    <Menu.Item as='a'>
+                        <Icon name={'mail outline'}/> Inbox
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Dropdown trigger={trigger} options={options} pointing='top right' icon={null}/>
+                    </Menu.Item>
+                </Menu.Menu>
+            </Menu>
+        )
+    }
+}
 
 export default FixedMenuLayout

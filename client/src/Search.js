@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import { Search } from 'semantic-ui-react';
 import Client from "./Client";
@@ -12,6 +11,8 @@ class BeerSearch extends Component {
     }
 
     resetComponent = () => this.setState({isLoading: false, results: [], value: ''});
+
+    sendResults = (results) => {this.props.callbackSearch(results)};
 
     handleResultSelect = (e, {result}) => this.setState({value: result.title});
 
@@ -39,10 +40,14 @@ class BeerSearch extends Component {
                     this.setState({
                         isLoading: false,
                         results: this.handleResults(results.data.slice(0, MATCHING_ITEM_LIMIT)),
-                    })
+                    });
+                    results.searchValue = this.state.value;
+                    this.sendResults(results);
+                } else {
+                    this.setState({isLoading: false, results: []});
                 }
             });
-        }, 500);
+        }, 1000);
     };
 
     render() {
@@ -56,7 +61,7 @@ class BeerSearch extends Component {
                 onSearchChange={this.handleSearchChange}
                 results={results}
                 value={value}
-                {...this.props}
+                input={this.props.input}
             />
         )
 

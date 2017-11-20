@@ -8,6 +8,24 @@ function search(query, cb) {
         .then(cb);
 }
 
+function searchByPage(query, cb) {
+    return fetch(`/api/beers?q=${query.q}&pageNumber=${query.pageNumber}`, {
+        accept: "application/json"
+    })
+        .then(checkStatus)
+        .then(parseJSON)
+        .then(cb);
+}
+
+function getBeer(query, cb) {
+    return fetch(`/api/beer?beerId=${query}`, {
+        accept: "application/json"
+    })
+        .then(checkStatus)
+        .then(parseJSON)
+        .then(cb);
+}
+
 function checkStatus(response) {
     if (response.status >= 200 && response.status < 300) {
         return response;
@@ -23,5 +41,5 @@ function parseJSON(response) {
     return response.json();
 }
 
-const Client = {search};
+const Client = {search, searchByPage, getBeer};
 export default Client;

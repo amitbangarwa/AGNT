@@ -1,0 +1,75 @@
+.transparent {
+    background: transparent!important;
+}
+.Search {
+    position: relative;
+    vertical-align: middle;
+    line-height: 1;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background: 0 0;
+    text-transform: none;
+    color: rgba(0,0,0,.87);
+    font-weight: 400;
+    -webkit-transition: background .1s ease,box-shadow .1s ease,color .1s ease;
+    -webkit-transition: background .1s ease,color .1s ease,-webkit-box-shadow .1s ease;
+    transition: background .1s ease,color .1s ease,-webkit-box-shadow .1s ease;
+    -o-transition: background .1s ease,box-shadow .1s ease,color .1s ease;
+    transition: background .1s ease,box-shadow .1s ease,color .1s ease;
+    transition: background .1s ease,box-shadow .1s ease,color .1s ease,-webkit-box-shadow .1s ease;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 10px;
+    border: 1px solid #9a9a9a;
+    padding: 0 10px;
+    border-radius: 2px;
+}
+.Search .Search-Input {
+    width: 250px;
+}
+.Search .Search-Dropdown {
+    font-size: .92857143em;
+}
+.Search .Search-Dropdown .transparent {
+    color: #fff;
+    background: 0;
+}
+
+.ui.selection.dropdown:focus, .ui.selection.active.dropdown:hover, .ui.selection.active.dropdown:hover .menu {
+    border-color: transparent!important;
+}
+.Divider::before {
+    padding: 0 5px;
+    content: '';
+}
+.Divider::after {
+    border-left: 1px solid #9a9a9a;
+    padding: 0 8px;
+    content: '';
+    height: 100%;
+}
+
+.Vertical-Divider:after {
+    clear: both;
+    content: " ";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.vertical-divider div:not(:first-child):after, .vertical-divider div:not(:first-child):after{
+    background: #fff;
+    bottom: 0;
+    content: " ";
+    margin-left: -10px;
+    position: absolute;
+    top: 0;
+    width: 1px;
+}
