@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "prestart": "npm install && cd client && npm install",
+    "presetup": "npm install && cd client && npm install",
+    "setup": "npm run start",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node server.js",
     "client": "node start-client.js",
