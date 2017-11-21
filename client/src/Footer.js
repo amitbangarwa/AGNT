@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Common from './Common';
-import {Container, Grid, Header, List, Icon, Button, Segment, Divider, Dropdown, Menu, Select} from 'semantic-ui-react';
+import {Container, Grid, Header, List, Icon, Button, Segment, Divider, Menu, Select} from 'semantic-ui-react';
 
 export default class Footer extends Component {
 

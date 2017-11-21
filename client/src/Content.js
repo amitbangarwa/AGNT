@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Card, Menu, Dropdown, Image, Icon, Button} from 'semantic-ui-react'
+import {Container, Card, Menu, Dropdown, Image, Icon, Button, Visibility} from 'semantic-ui-react'
 import Assets from "./Assets";
 import Client from "./Client";
 import Filter from './Filter';
@@ -9,7 +9,24 @@ let currentNumber = 12;
 
 class Content extends Component {
     state = {
-        isLoading: false
+        isLoading: false,
+        hidden: true,
+        calculations: {
+            direction: 'none',
+            height: 0,
+            width: 0,
+            topPassed: false,
+            bottomPassed: false,
+            pixelsPassed: 0,
+            percentagePassed: 0,
+            topVisible: false,
+            bottomVisible: false,
+            fits: false,
+            passing: false,
+            onScreen: false,
+            offScreen: false,
+            bottomVisibleReverse: false
+        },
     };
 
     componentWillMount() {
@@ -77,8 +94,24 @@ class Content extends Component {
         });
     };
 
+    handleVisibilityEvents = (e, { calculations }) => {
+        this.setState({ calculations });
+        if (calculations.bottomVisible.toString() === 'true') {
+            this.setState({hidden:false});
+            //this.handleBeersLimit();
+        }
+        if (calculations.topVisible.toString() === 'true') {
+            this.setState({hidden:true});
+        }
+    };
+
+    scrollToTop = () => {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    };
+
     render() {
-        const {beersToShow, isLoading} = this.state;
+        const {beersToShow, isLoading, hidden} = this.state;
 
         const beerRows = beersToShow.map((beer, idx) => {
             let abv = null, verified = null;
@@ -113,57 +146,70 @@ class Content extends Component {
                 </Card>
             )
         });
+
         return (
-            <div className={'Content'} style={{background: '#eee'}}>
-                <Menu>
-                    <Container>
-                        {/*<Dropdown item placeholder='ABV Range' onChange={this.handleFilterEvent} options={Common.AbvOptions} />*/}
-                        <Dropdown item text='ABV Range'>
-                            <Dropdown.Menu>
-                                <Dropdown.Item onClick={this.handleFilterEvent} name={'abv'} text={'0 - 5'} value={'0-5'}/>
-                                <Dropdown.Item onClick={this.handleFilterEvent} name={'abv'} text={'5 - 10'} value={'5-10'}/>
-                            </Dropdown.Menu>
-                        </Dropdown>
-
-                        <Dropdown item text='Organic'>
-                            <Dropdown.Menu>
-                                <Dropdown.Item onClick={this.handleFilterEvent} name={'isOrganic'} text={'Yes'} value={'Y'}/>
-                                <Dropdown.Item onClick={this.handleFilterEvent} name={'isOrganic'} text={'No'} value={'N'}/>
-                            </Dropdown.Menu>
-                        </Dropdown>
-
-                        <Dropdown item text='Status'>
-                            <Dropdown.Menu>
-                                <Dropdown.Item onClick={this.handleFilterEvent} name={'status'} text={'Verified'} value={'verified'}/>
-                                <Dropdown.Item onClick={this.handleFilterEvent} name={'status'} text={'UnVerified'}
-                                               value={'update_pending'}/>
-                            </Dropdown.Menu>
-                        </Dropdown>
-
-                        <Menu.Menu position={'right'}>
-                            <Dropdown item text='Sort by'>
+            <Visibility onUpdate={this.handleVisibilityEvents}>
+                <div className={'Content'} style={{background: '#eee'}}>
+                    <Menu>
+                        <Container>
+                            {/*<Dropdown item placeholder='ABV Range' onChange={this.handleFilterEvent} options={Common.AbvOptions} />*/}
+                            <Dropdown item text='ABV Range'>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item onClick={this.handleFilterEvent} name={'sort'} text={'Create Date'}
-                                                   value={'createDate'}/>
-                                    <Dropdown.Item onClick={this.handleFilterEvent} name={'sort'} text={'Name'} value={'name'}/>
-                                    <Dropdown.Item onClick={this.handleFilterEvent} name={'sort'} text={'Updated Date'}
-                                                   value={'name'}/>
+                                    <Dropdown.Item onClick={this.handleFilterEvent} name={'abv'} text={'0 - 5'}
+                                                   value={'0-5'}/>
+                                    <Dropdown.Item onClick={this.handleFilterEvent} name={'abv'} text={'5 - 10'}
+                                                   value={'5-10'}/>
                                 </Dropdown.Menu>
                             </Dropdown>
-                        </Menu.Menu>
+
+                            <Dropdown item text='Organic'>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={this.handleFilterEvent} name={'isOrganic'} text={'Yes'}
+                                                   value={'Y'}/>
+                                    <Dropdown.Item onClick={this.handleFilterEvent} name={'isOrganic'} text={'No'}
+                                                   value={'N'}/>
+                                </Dropdown.Menu>
+                            </Dropdown>
+
+                            <Dropdown item text='Status'>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={this.handleFilterEvent} name={'status'} text={'Verified'}
+                                                   value={'verified'}/>
+                                    <Dropdown.Item onClick={this.handleFilterEvent} name={'status'} text={'UnVerified'}
+                                                   value={'update_pending'}/>
+                                </Dropdown.Menu>
+                            </Dropdown>
+
+                            <Menu.Menu position={'right'}>
+                                <Dropdown item text='Sort by'>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item onClick={this.handleFilterEvent} name={'sort'}
+                                                       text={'Create Date'}
+                                                       value={'createDate'}/>
+                                        <Dropdown.Item onClick={this.handleFilterEvent} name={'sort'} text={'Name'}
+                                                       value={'name'}/>
+                                        <Dropdown.Item onClick={this.handleFilterEvent} name={'sort'}
+                                                       text={'Updated Date'}
+                                                       value={'name'}/>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </Menu.Menu>
+                        </Container>
+                    </Menu>
+                    <Container style={{paddingTop: '3em', paddingBottom: '3em'}}>
+                        <Card.Group itemsPerRow={4}>
+                            {beerRows}
+                        </Card.Group>
+                        <div style={{textAlign: 'center', marginTop: '3em'}}>
+                            <Button loading={isLoading} size={'large'} color={'teal'} onClick={this.handleBeersLimit}>Know
+                                More</Button>
+                        </div>
                     </Container>
-                </Menu>
-                <Container style={{paddingTop: '3em', paddingBottom: '3em'}}>
-                    <Card.Group itemsPerRow={4}>
-                        {beerRows}
-                    </Card.Group>
-                    <div style={{textAlign: 'center', marginTop: '3em'}}>
-                        <Button loading={isLoading} size={'large'} color={'teal'} onClick={this.handleBeersLimit}>Know
-                            More</Button>
+                    <div hidden={hidden} onClick={this.scrollToTop}>
+                    <Button icon='chevron up' className={'sticky-button'}/>
                     </div>
-                </Container>
-                <Button icon='chevron up' className={'sticky-button'}/>
-            </div>
+                </div>
+            </Visibility>
         )
     }
 }
