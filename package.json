@@ -4,6 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "agnt": "concurrently \"npm run serverinit\" \"npm run clientinit\" \"npm start\"",
+    "serverinit": "npm install",
+    "clientinit": "cd client && npm install",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node server.js",
     "client": "node start-client.js",
