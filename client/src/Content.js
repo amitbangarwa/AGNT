@@ -94,14 +94,14 @@ class Content extends Component {
         });
     };
 
-    handleVisibilityEvents = (e, { calculations }) => {
-        this.setState({ calculations });
+    handleVisibilityEvents = (e, {calculations}) => {
+        this.setState({calculations});
         if (calculations.bottomVisible.toString() === 'true') {
-            this.setState({hidden:false});
+            this.setState({hidden: false});
             //this.handleBeersLimit();
         }
         if (calculations.topVisible.toString() === 'true') {
-            this.setState({hidden:true});
+            this.setState({hidden: true});
         }
     };
 
@@ -150,7 +150,7 @@ class Content extends Component {
         return (
             <Visibility onUpdate={this.handleVisibilityEvents}>
                 <div className={'Content'} style={{background: '#eee'}}>
-                    <Menu>
+                    <Menu className={'FilterMenu'}>
                         <Container>
                             {/*<Dropdown item placeholder='ABV Range' onChange={this.handleFilterEvent} options={Common.AbvOptions} />*/}
                             <Dropdown item text='ABV Range'>
@@ -180,7 +180,7 @@ class Content extends Component {
                                 </Dropdown.Menu>
                             </Dropdown>
 
-                            <Menu.Menu position={'right'}>
+                            <Menu.Menu className={'subMenu'}>
                                 <Dropdown item text='Sort by'>
                                     <Dropdown.Menu>
                                         <Dropdown.Item onClick={this.handleFilterEvent} name={'sort'}
@@ -197,7 +197,7 @@ class Content extends Component {
                         </Container>
                     </Menu>
                     <Container style={{paddingTop: '3em', paddingBottom: '3em'}}>
-                        <Card.Group itemsPerRow={4}>
+                        <Card.Group itemsPerRow={4} stackable>
                             {beerRows}
                         </Card.Group>
                         <div style={{textAlign: 'center', marginTop: '3em'}}>
@@ -206,7 +206,7 @@ class Content extends Component {
                         </div>
                     </Container>
                     <div hidden={hidden} onClick={this.scrollToTop}>
-                    <Button icon='chevron up' className={'sticky-button'}/>
+                        <Button icon='chevron up' className={'sticky-button'}/>
                     </div>
                 </div>
             </Visibility>

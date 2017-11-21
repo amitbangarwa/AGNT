@@ -30,7 +30,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Dimmer active={this.state.loaderActive} page={true}>
+                <Dimmer active={this.state.loaderActive}>
                     <Loader size='massive'>Loading Beers...</Loader>
                 </Dimmer>
                 <FixedMenuLayout callbackBeers={this.handelBeersData}/>

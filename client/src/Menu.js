@@ -31,19 +31,19 @@ class FixedMenuLayout extends Component {
         const {activeItem} = this.state;
 
         return (
-            <Menu fixed='top' inverted>
+            <Menu fixed='top' inverted className={'Menu'}>
                 <Menu.Item as='a' href={'/'} header
                            active={activeItem === 'Home'}
                            onClick={this.handleItemClick}
                 >
-                    <Image
+                    {/*<Image
                         size='mini'
                         src={Assets.Images.logo}
                         style={{marginRight: '1.5em'}}
-                    />
+                    />*/}
                     AGNT
                 </Menu.Item>
-                <Dropdown item simple text='Event Services'>
+                <Dropdown item simple text='Event Services' className={'hidden-xs'}>
                     <Dropdown.Menu>
                         <Dropdown.Item>Beer</Dropdown.Item>
                         <Dropdown.Item>Brewery</Dropdown.Item>
@@ -53,7 +53,7 @@ class FixedMenuLayout extends Component {
                         <Dropdown.Item>Award Category</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
-                <div hidden={this.props.hideSearch}>
+                <div hidden={this.props.hideSearch} className={'hidden-xs'}>
                     <div className='Search Vertical-Divider'>
                         <div className={'Search-Input'}>
                             <BeerSearch
@@ -68,7 +68,7 @@ class FixedMenuLayout extends Component {
                                 }}
                             />
                         </div>
-                        <div className={'Search-Dropdown'}>
+                        <div className={'Search-Dropdown hidden-xs'}>
                             <Dropdown className={'transparent'} placeholder='With Breweries' selection
                                       options={Options.BreweriesOption}/>
                         </div>

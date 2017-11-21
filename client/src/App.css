@@ -40,6 +40,10 @@
     text-decoration: underline;
 }
 
+.InfoContainer {
+    margin: 7em 0 3em 0;
+}
+
 .InfoContainer .info-card{
     box-shadow: none!important;
 }
@@ -56,6 +60,59 @@
 
 .InfoContainer .info-card-right .info-description {
     margin: 18px 0!important;
+}
+
+.Footer {
+    padding-top: 5em!important;
+}
+
+@media (max-width: 768px) {
+    .FilterMenu .ui.dropdown{
+        padding-left: 10px!important;
+        padding-right: 10px!important;
+    }
+    .InfoContainer {
+        margin: 0;
+    }
+    .InfoContainer .info-card .info-text {
+        font-size: 20px;
+    }
+    .InfoContainer .info-card-right .info-card-button {
+        text-align: center;
+    }
+    .InfoContainer .info-card-right .info-card-button button {
+        padding: 10px;
+    }
+    .Menu {
+        position: relative!important;
+    }
+    .Menu .Search {
+        padding: 10px 0;
+    }
+    .hidden-xs {
+        display: none!important;
+    }
+    .Footer .footer-menu-one {
+        display: block;
+    }
+    .Footer .footer-menu-one .item{
+        display: inline-block!important;
+    }
+    .FilterMenu .subMenu {
+        margin-left: 0!important;
+    }
+}
+@media (min-width: 768px) {
+    .Footer .footer-menu-one {
+        display: none;
+    }
+    .FilterMenu .subMenu {
+        margin-left: auto!important;
+    }
+    .FilterMenu .subMenu .item::before {
+        right: auto;
+        left: 0;
+    }
 }
 
 @keyframes scroll-to-top {

@@ -8,8 +8,8 @@ export default class Footer extends Component {
         return (
             <Segment
                 inverted
-                style={{paddingTop: '5em'}}
                 vertical
+                className={'Footer'}
             >
                 <Container textAlign='center'>
                     <Grid columns={4} divided stackable inverted>
@@ -21,7 +21,8 @@ export default class Footer extends Component {
                                                   options={Common.languageOptions}/>
                                     </List.Item>
                                     <List.Item>
-                                        <Select className={'footer-select'} placeholder='Select your country' options={Common.countryOptions} />
+                                        <Select className={'footer-select'} placeholder='Select your country'
+                                                options={Common.countryOptions} />
                                     </List.Item>
                                 </List>
                             </Grid.Column>
@@ -29,7 +30,7 @@ export default class Footer extends Component {
                                 <Header inverted as='h4' content='Beers'/>
                                 <List link inverted>
                                     <List.Item as='a'>Sign up free</List.Item>
-                                    <List.Item as='a'>Get Discovered</List.Item>
+                                    <List.Item as='a'>Discover the Beer</List.Item>
                                     <List.Item as='a'>Get More Beer</List.Item>
                                     <List.Item as='a'>Search For Beer</List.Item>
                                 </List>
@@ -61,19 +62,33 @@ export default class Footer extends Component {
                         <Menu.Menu position='right'>
                             <Menu.Item as='a' className={'copyright'}>Privacy</Menu.Item>
                             <Menu.Item as='a' className={'copyright'}>Terms</Menu.Item>
-                            <Menu.Menu position='right'>
+                            <Menu.Menu position='right' className={'hidden-xs'}>
                                 <Menu.Item as='a' icon={'facebook f'}/>
                                 <Menu.Item as='a' icon={'twitter'}/>
                                 <Menu.Item as='a' icon={'instagram'}/>
                                 <Menu.Item as='a' icon={'youtube'}/>
                             </Menu.Menu>
-                            <Menu.Item>
+                            <Menu.Item className={'hidden-xs'}>
                                 <Button inverted basic color='grey'>
                                     <Icon name={'apple'}/>
                                     Available on the App Store
                                 </Button>
                             </Menu.Item>
                         </Menu.Menu>
+                    </Menu>
+                    <Menu inverted={true} secondary className={'footer-menu-one'}>
+                        <Menu.Item>
+                            <Menu.Item as='a' icon={'facebook f'}/>
+                            <Menu.Item as='a' icon={'twitter'}/>
+                            <Menu.Item as='a' icon={'instagram'}/>
+                            <Menu.Item as='a' icon={'youtube'}/>
+                        </Menu.Item>
+                        <Menu.Item>
+                            <Button inverted basic color='grey'>
+                                <Icon name={'apple'}/>
+                                Available on the App Store
+                            </Button>
+                        </Menu.Item>
                     </Menu>
                 </Container>
             </Segment>

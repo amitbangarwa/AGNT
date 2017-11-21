@@ -20,8 +20,8 @@ class InfoContainer extends Component {
     render() {
         const {totalNumber, searchValue} = this.state;
         return (
-            <Container style={{margin: '7em 0 3em 0'}} className={'InfoContainer'}>
-                <Card.Group itemsPerRow={2}>
+            <Container className={'InfoContainer'}>
+                <Card.Group itemsPerRow={2} stackable>
                     <Card className={'info-card'}>
                         <Card.Content>
                             <Card.Description>
@@ -43,7 +43,7 @@ class InfoContainer extends Component {
                                 There are so much beer out there that it can be overwhelming.<br/>
                                 Why not give the Breweries apply for your beer to make it easier?
                             </Card.Description>
-                            <div>
+                            <div className={'info-card-button'}>
                                 <Button color='teal'>Get Started</Button>
                                 <Button style={{marginLeft:'1em'}} basic color='grey'>
                                     <Icon name={'video play outline'}/>
