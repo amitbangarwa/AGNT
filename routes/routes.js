@@ -1,3 +1,4 @@
+'use strict';
 module.exports = (app) => {
     const api = require('../app/logic/api')(app);
 
